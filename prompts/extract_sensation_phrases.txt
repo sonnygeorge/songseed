@@ -1,0 +1,44 @@
+From the following music review, I am interested in extracting phrases that describe the subjective experience of listening to the music.
+
+Note that I am not interested in phrases that are describe qualities of the lyrical content. Please also skip over phrases that explicit reference instruments.
+
+I am mostly interested in abstract sensations. Feel free to bend the messages across spans into short descriptions of the abstract sensation.
+
+Here are some examples of this kind of phrase:
+
+```python
+INTERESTING_DESCRIPTIVE_PHRASES = [
+    "showcases the playful side of funk",
+    "'filing this berg to the shape of a ship' the whole thing, square dance, opera, rock, it's like I don't even know what to say about this thing.",
+    "pumping out juicy grooves galore underneath a glitzy flare",
+    "hooks onto an upswell of emotion, animated with byzantine crashes and buoyant garnishes",
+    "a haunting ode to everyday American pain",
+    "leaves a peaceful imprint",
+    "rides a sparser R&B groove",
+    "right up my alley (that alley is a dimly-lit space behind a record store in Pomona)",
+    "a riff reaching almost ecclesiastical joy",
+    "a kind of bold late-period triumph that could have only come from an old master playfully grappling with the tools of our uncanny present moment",
+    "a song that's both a celebration and a lament",
+    "a gorgeous listening experience",
+    "a love song of the highest order, and there's nothing ironic about itemotive prologue of chords gathers sweet backing harmonies",
+    "characterized by the gradual accumulation and subtraction of melodic and rhythmic gestures",
+    "production is very dated and fairly sparse, and without any of the psychedelic flourishesif this record was in your house in 1968, you were no doubt listening to it all day long, tears of joy streaming down your face",
+    "a liquid perfume that made you feel slightly sick",
+    "if it was indeed a pair of jeans, they'd surely be Bootcutsimultaneously thick and husky",
+    "expertly arranged, catchy, and explosive",
+    "feels like you're caught tumble drying with how the rhythm continually cascades over itself",
+    "builds toward a gospel-like peak",
+    "light, whimpering vocals",
+    "crafted out of battering drums and cathartic lifts",
+    "a warm, inviting, and intimate affair",
+    "a simultaneously hokey and bombastic feel",
+    "instantly collapsing the reality of the song and thrusting us back into the absurd technological fabric of the world around us",
+    "arrives as lazily and beautifully as crashing waves",
+    "encapsulates a sweetness and sense of humour",
+    "makes me want to dance and boogie and laugh",
+    "a freefall into impermanence",
+    "a bunch of Brazilian hippies having a blast making fun, catchy, rhythmic Tropicalia",
+]
+```
+
+Here is the review. Can you extract such phrases from it? Please format your response as a Python list.

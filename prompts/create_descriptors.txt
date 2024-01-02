@@ -1,0 +1,54 @@
+Please reflect and then provide the necessary copy-and-pastable initializations of the `Descriptor` objects for the following list.
+
+!Important: If the text does not connote a tempo range, the `tempo_prob_dist` should be `None`.
+
+!Important: You will need to respond with a Python list of objects initialized as patterned above.
+
+```python
+[
+    "production is very dated and fairly sparse, and without any of the psychedelic flourishes",
+    "if this record was in your house in 1968, you were no doubt listening to it all day long, tears of joy streaming down your face",
+    "squirrelly sense of humor and a barely veiled obsession with death",
+    "economical writing with chipper, pattering melody",
+    "more inventive and sprightly",
+    "progressing from winding folk and distorted rock to offbeat, Sugar Ray-style pop to minimal trap and R&B",
+    "bitter, grizzled, refreshing",
+    "injecting new verve into the songwriting",
+    "The one song Jeff Tweedy wishes he wrote",
+    "proportionally life-giving, indulgent, and periodically goofy",
+    "deeply antagonistic with a vestigial bite",
+    "all waveforms denature and melt",
+    "syncretic funk they forged",
+    "a crystalline duet",
+    "bathing in misty sunshine",
+    "melancholy, with lilting ambience",
+    "gently twisted perspective",
+    "roams from bobbing indie folk to crashing rock reminiscent of St. Vincent",
+    "in marginally better spirits",
+    "a beautiful, alien life form streaking past our sight",
+    "feel like you're being preached at while listening",
+    "the savviest and most omnivorous pop",
+    "harmonies that linger like a sunbeam",
+    "manic, weird, and provocatively cross-cultural",
+    "swerving drastically" "flopping catastrophically and still very happy",
+    "crisp funky",
+    "goofy and red-eyed",
+    "offers a worthwhile escape with understated grace",
+    "anxiously placating a tense situation",
+    "talky pastoral funk song",
+    "more sensual revamp lightening up the mood",
+    "deeply mellow writing and performer",
+    "taking a leap forward into emotional directness",
+    "'filing this berg to the shape of a ship' the whole thing, square dance, opera, rock, it's like I don't even know what to say about this thing.",
+    "a love song of the highest order, and there's nothing ironic about itemotive prologue of chords gathers sweet backing harmonies",
+    "perfect contrast to the rainy weather outside",
+    "conjuring the myth of ordinary people",
+    "concerns itself with the aimlessness and absurdity of everyday life",
+    "appealingly laid-back",
+    "delectable and dejected in one gorgeously vulnerable package",
+    "the most exhilarating evocation of youth",
+    "admitting the weight of lightness, that things are okay",
+    "spacy, Daft Punk-indebted undulation",
+    "treats you lovingly",
+]
+```

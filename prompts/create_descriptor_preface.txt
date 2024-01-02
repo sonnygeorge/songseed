@@ -1,0 +1,141 @@
+I am trying to develop a corpus of "descriptors" as outlined by the following code:
+
+```python
+class Descriptor(TypedDict):
+    """A dataclass for a string that describes the sensation of listening to a song.
+
+    Attributes:
+        - descriptor: The string that describes the sensation of listening to a song.
+        - tempo_prob_dist: Since some descriptions are more appropriate (likely to be used)
+          for certain tempos, this attribute is a conditional probability distribution
+          of tempos given the presence of this descriptor.
+        - swing_prob: Since some descriptions are more appropriate (likely to be used) for
+          songs with swing (or played as a shuffle), this attribute is the conditional
+          probability of the song being swung/a shuffle given the presence of this
+          descriptor.
+    """
+
+    text: str
+    tempo_prob_dist: Optional[norm]
+    swing_prob: Optional[float]
+
+EXAMPLE_DESCRIPTORS = [
+    Descriptor(text="jaunty", tempo_prob_dist=norm(loc=120, scale=10), swing_prob=0.6),
+    Descriptor(text="anthemic", tempo_prob_dist=norm(loc=92, scale=10), swing_prob=0.5),
+    Descriptor(text="reflective", tempo_prob_dist=norm(loc=80, scale=10), swing_prob=0.2),
+    Descriptor(text="groovy", tempo_prob_dist=norm(loc=100, scale=23), swing_prob=0.35),
+    Descriptor(text="easygoing", tempo_prob_dist=norm(loc=90, scale=22), swing_prob=0.45),
+    Descriptor(text="upbeat", tempo_prob_dist=norm(loc=110, scale=25), swing_prob=0.5),
+    Descriptor(text="bouncy", tempo_prob_dist=norm(loc=118, scale=13), swing_prob=0.55),
+    Descriptor(text="driving", tempo_prob_dist=norm(loc=125, scale=20), swing_prob=0.5),
+    Descriptor(text="rhythmic", tempo_prob_dist=norm(loc=120, scale=40), swing_prob=0.1),
+    Descriptor(text="pulsing", tempo_prob_dist=norm(loc=134, scale=12), swing_prob=0.3),
+    Descriptor(text="lively", tempo_prob_dist=norm(loc=115, scale=10), swing_prob=0.1),
+    Descriptor(text="athletic", tempo_prob_dist=norm(loc=155, scale=30), swing_prob=0.4),
+    Descriptor(text="syncopated", tempo_prob_dist=norm(loc=115, scale=30), swing_prob=0.0),
+    Descriptor(text="frenetic", tempo_prob_dist=norm(loc=140, scale=30), swing_prob=0.0),
+    Descriptor(text="calm", tempo_prob_dist=norm(loc=78, scale=12), swing_prob=0.05),
+    Descriptor(text="mellow", tempo_prob_dist=norm(loc=82, scale=10), swing_prob=0.1),
+    Descriptor(text="steady", tempo_prob_dist=norm(loc=104, scale=15), swing_prob=0.5),
+    Descriptor(text="energetic", tempo_prob_dist=norm(loc=128, scale=20), swing_prob=0.5),
+    Descriptor(text="relaxed", tempo_prob_dist=norm(loc=81, scale=10), swing_prob=0.3),
+    Descriptor(text="brisk", tempo_prob_dist=norm(loc=128, scale=20), swing_prob=0.5),
+    Descriptor(text="leisurely", tempo_prob_dist=norm(loc=93, scale=8), swing_prob=0.5),
+    Descriptor(text="spirited", tempo_prob_dist=norm(loc=130, scale=30), swing_prob=0.5),
+    Descriptor(text="convolving", tempo_prob_dist=norm(loc=110, scale=25), swing_prob=0.1),
+    Descriptor(text="breezy", tempo_prob_dist=norm(loc=150, scale=20), swing_prob=0.5),
+    Descriptor(text="deliberate", tempo_prob_dist=norm(loc=96, scale=10), swing_prob=0.5),
+    Descriptor(text="hasty", tempo_prob_dist=norm(loc=150, scale=18), swing_prob=0.4),
+    Descriptor(text="majestic", tempo_prob_dist=norm(loc=82, scale=12), swing_prob=0.5),
+    Descriptor(text="choppy", tempo_prob_dist=norm(loc=120, scale=40), swing_prob=0.15),
+    Descriptor(text="pounding", tempo_prob_dist=norm(loc=120, scale=20), swing_prob=0.15),
+    Descriptor(text="bustling", tempo_prob_dist=norm(loc=165, scale=10), swing_prob=0.5),
+    Descriptor(text="sprightly", tempo_prob_dist=norm(loc=120, scale=20), swing_prob=0.5),
+    Descriptor(text="electric", tempo_prob_dist=norm(loc=123, scale=15), swing_prob=0.2),
+    Descriptor(text="unwavering", tempo_prob_dist=norm(loc=116, scale=37), swing_prob=0.4)
+    Descriptor(text="a meat-and-potatoes thang", tempo_prob_dist=norm(loc=110, scale=20), swing_prob=0.2),
+    Descriptor(text="bruising drum work squares off against lightning-like solos", tempo_prob_dist=norm(loc=140, scale=30), swing_prob=0.05),
+    Descriptor(text="leaves a peaceful imprint", tempo_prob_dist=norm(loc=70, scale=15), swing_prob=0.1),
+    Descriptor(text="advice to loosen up and take risks", tempo_prob_dist=norm(loc=85, scale=30), swing_prob=0.3),
+    Descriptor(text="serene, plaintive quality of voice doing the heavy lifting", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="rich and delirious in almost every flutter", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="smarmy schlock rock", tempo_prob_dist=norm(loc=112, scale=30), swing_prob=0.5),
+    Descriptor(text="a f****** beautiful parade", tempo_prob_dist=norm(loc=112, scale=30), swing_prob=0.3),
+    Descriptor(text="understated yacht-rocking", tempo_prob_dist=norm(loc=110, scale=20), swing_prob=0.4),
+    Descriptor(text="struts at a parade pace", tempo_prob_dist=norm(loc=110, scale=20), swing_prob=0.5),
+    Descriptor(text="felt like a giant hug", tempo_prob_dist=norm(loc=112, scale=30), swing_prob=0.5),
+    Descriptor(text="giving his wayward beats a purposeful attitude", tempo_prob_dist=norm(loc=115, scale=30), swing_prob=0.55),
+    Descriptor(text="a slowly cascading chorus that tugs at your heartstrings", tempo_prob_dist=norm(loc=90, scale=13), swing_prob=0.5),
+    Descriptor(text="elastic sound with wry lightheartedness", tempo_prob_dist=norm(loc=118, scale=30), swing_prob=0.5),
+    Descriptor(text="a landmark album of 70s funk", tempo_prob_dist=norm(loc=110, scale=20), swing_prob=0.08),
+    Descriptor(text="giving it all equal space to shine", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="a touch of self-absorbed fantasy", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="an odd, malfunctioning gimmick", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="swimming through organic muck to reach your ears", tempo_prob_dist=norm(loc=105, scale=30), swing_prob=0.5),
+    Descriptor(text="weightlessly low-key glossy disco", tempo_prob_dist=norm(loc=120, scale=8), swing_prob=0.03),
+    Descriptor(text="feels like a thousand little stipples of percussion", tempo_prob_dist=None, swing_prob=0.05),
+    Descriptor(text="hit upon a revelation", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="wields a plush comedown", tempo_prob_dist=norm(loc=104, scale=25), swing_prob=0.3),
+    Descriptor(text="peculiar mixture of surprise and inevitability", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="fully embraces the cheddar pleasures", tempo_prob_dist=None, swing_prob=0.55),
+    Descriptor(text="a warm, inviting, and intimate affair", tempo_prob_dist=None, swing_prob=0.4),
+    Descriptor(text="ever-increasing levels of opportunity", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="syncopated, clacking bass", tempo_prob_dist=norm(loc=120, scale=20), swing_prob=0.1),
+    Descriptor(text="razor wit", tempo_prob_dist=None, swing_prob=0.3),
+    Descriptor(text="loud nouns painting vivid pictures", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="master of irony and tone", tempo_prob_dist=None, swing_prob=0.3),
+    Descriptor(text="the consequences of getting in the mood", tempo_prob_dist=None, swing_prob=0.25),
+    Descriptor(text="a kind of sonic comfort food", tempo_prob_dist=None, swing_prob=0.47),
+    Descriptor(text="juddering squelches", tempo_prob_dist=None, swing_prob=0.3),
+    Descriptor(text="a haunting ode to everyday American pain", tempo_prob_dist=norm(loc=70, scale=15), swing_prob=0.1),
+    Descriptor(text="real Gorillaz vibe", tempo_prob_dist=norm(loc=108, scale=30), swing_prob=0.04),
+    Descriptor(text="connects art and ideas from different eras into a kind of ecstatic worldview", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="they've got to convince themselves of their cool", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="makes the song feel plump at the edges and thin in the middle", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="induces nostalgia, revulsion, historical reconsideration", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="swoop as well as it floats", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="anguished and overcooked", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="coated in molasses", tempo_prob_dist=norm(loc=92, scale=10), swing_prob=0.63),
+    Descriptor(text="manipulated voice to intoxicating effect", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="lightly viscous", tempo_prob_dist=norm(loc=106, scale=18), swing_prob=0.52),
+    Descriptor(text="distinctly casual", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="elated melody that feels lifted from a forgotten video game soundtrack", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="slicing disco strings and a tricky chorus melody", tempo_prob_dist=norm(loc=115, scale=13), swing_prob=0.2),
+    Descriptor(text="eccentric angles", tempo_prob_dist=norm(loc=105, scale=35), swing_prob=0.5),
+    Descriptor(text="noodly", tempo_prob_dist=norm(loc=105, scale=30), swing_prob=0.3),
+    Descriptor(text="fantasy of the garden and innocence", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="hooks onto an upswell of emotion, animated with byzantine crashes and buoyant garnishes", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="nurtures eccentricities leading to an arrangement full of colorful moments", tempo_prob_dist=None, swing_prob=0.5),
+    Descriptor(text="a beautifully understated but addictive hymn", tempo_prob_dist=None, swing_prob=0.5),
+]
+```
+
+I am going to give a list of strings and I would like you to reply with a list `Descriptor` objects.
+
+To do so, you will need to reflect on the variety of music that the descriptor would possibly describe and determine the center and spread of a distribution of likely tempos as well as the likelihood of the described music being swung or played as a shuffle.
+
+!Important: If the text does not connote a tempo range, the `tempo_prob_dist` should be `None`.
+
+!Important: You will need to respond with a Python list of objects initialized as patterned above.
+
+for example, if I gave you this list:
+
+```python
+[
+    "musical gags",
+    "like your favorite pair of jeans",
+    "simultaneously thick and husky",
+]
+```
+
+You would need to think it through and then include this:
+
+```python
+[
+    Descriptor(text="musical gags", tempo_prob_dist=norm(loc=120, scale=20), swing_prob=0.5),
+    Descriptor(text="like your favorite pair of jeans", tempo_prob_dist=norm(loc=110, scale=30), swing_prob=0.45),
+    Descriptor(text="simultaneously thick and husky", tempo_prob_dist=norm(loc=87, scale=15), swing_prob=0.4),
+]
+```
+
+Please thoroughly articulate your understanding of the task before we continue.
