@@ -1,3 +1,3 @@
 # SongSeed
 
-A basic command-line application to administer a basic songwriting exercise.
+A command-line application that administers a basic songwriting exercise.
